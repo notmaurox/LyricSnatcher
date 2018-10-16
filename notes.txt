@@ -1,0 +1,4 @@
+# In page text artist and title found in form
+# <meta content="Odd Future – Oldie" property="og:title" />
+
+# Lyrics start after line, "Oldie Lyrics"

@@ -5,11 +5,11 @@ import requests
 
 artist_name = "Earl Sweatshirt"
 
-dibbsurl = 'https://genius.com/Odd-future-oldie-lyrics'
+dibbsurl = 'https://genius.com/Earl-sweatshirt-sunday-lyrics'
 uClient = requests.get(dibbsurl, verify=False)
 data = uClient.content
 
-f = open("GeniusHTTP.txt", "a")
+f = open("GeniusHTTP2.txt", "a")
 f.write(data)
 f.close()
 
@@ -23,7 +23,7 @@ pageText = soup.get_text()
 
 print pageText
 
-f = open("GeniusText.txt", "a")
+f = open("GeniusText2.txt", "a")
 f.write(pageText.encode('utf-8'))
 f.close()
 
