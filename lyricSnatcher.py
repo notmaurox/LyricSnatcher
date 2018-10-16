@@ -22,11 +22,15 @@ soup = BeautifulSoup(page, 'html.parser')
 
 pageText = soup.get_text()
 
-print pageText
 
 songInfoDict = {}
+dictFilled = False
+foundLyrics = False
+lyricLines = -1
 
 for item in pageText.split("\n"):
+    if lyricLines >= 0:
+        lyricLines+=1
     if "var TRACKING_DATA" in item:
         data = item.split(" = ")[1].replace("};","}")
         evalReady = data.replace("\"","").replace("}","").replace("{","")
@@ -35,6 +39,17 @@ for item in pageText.split("\n"):
         for element in evalReadyArr:
             elementItems = element.split(":")
             songInfoDict[elementItems[0]] = elementItems[1]
+        dictFilled = True
+        lyricStartKey = songInfoDict["Title"]+" Lyrics"
+    if dictFilled == True and lyricStartKey in item and lyricLines == -1:
+            print "found2"
+            foundLyrics = True
+            lyricLines+=1
+    if foundLyrics == True:
+        print item 
+    if foundLyrics == True and "More on Genius" in item:
+        foundLyrics = False
+    
 print "XXX"
 print songInfoDict["Title"]
 print "XXX"
