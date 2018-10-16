@@ -2,6 +2,7 @@
 import urllib2
 from bs4 import BeautifulSoup
 import requests
+import ast
 
 artist_name = "Earl Sweatshirt"
 
@@ -22,6 +23,22 @@ soup = BeautifulSoup(page, 'html.parser')
 pageText = soup.get_text()
 
 print pageText
+
+songInfoDict = {}
+
+for item in pageText.split("\n"):
+    if "var TRACKING_DATA" in item:
+        data = item.split(" = ")[1].replace("};","}")
+        evalReady = data.replace("\"","").replace("}","").replace("{","")
+        evalReadyArr = evalReady.split(",") 
+        print evalReady
+        for element in evalReadyArr:
+            elementItems = element.split(":")
+            songInfoDict[elementItems[0]] = elementItems[1]
+print "XXX"
+print songInfoDict["Title"]
+print "XXX"
+
 
 f = open("GeniusText2.txt", "a")
 f.write(pageText.encode('utf-8'))
