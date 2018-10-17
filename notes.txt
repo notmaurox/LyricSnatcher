@@ -3,7 +3,7 @@
 
 # Lyrics start after line, "Oldie Lyrics"
 
-Example songInfoDict contents...
+#Example songInfoDict contents...
 Song ID:188765,
 Title:Sunday,
 Primary Artist:Earl Sweatshirt,
@@ -29,3 +29,11 @@ Lyrics Language:en,
 Has Song Story:false,
 Song Story ID:null,
 Has Apple Match:true
+
+#Song with guests takes form...
+Song ID:188765,Title:Sunday,Primary Artist:Earl Sweatshirt,Primary Artist ID:686,Primary Album:Doris,Primary Album ID:328570,Tag:rap,Primary Tag:rap,Primary Tag ID:1434,Music?:true,Annotatable Type:Song,Annotatable ID:188765,featured_video:false,cohort_ids:[],has_verified_callout:false,has_featured_annotation:true,created_at:2013-07-13T01:02:53Z,created_month:2013-07-01,created_year:2013,song_tier:D,Has Recirculated Articles:false,Lyrics Language:en,Has Song Story:false,Song Story ID:null,Has Apple Match:true
+
+#In lyric body [] takes form of Verse/Chorus... or contain : when written by 
+#someone else. Splitting [] lines by ": " should either result in an array
+#of 1 element if no writer tag, otherwise element 2 should contain artist name
+#provided by songInfoDict["Primary Artist"]

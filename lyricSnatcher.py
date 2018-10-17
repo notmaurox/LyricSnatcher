@@ -6,14 +6,9 @@ import ast
 
 artist_name = "Earl Sweatshirt"
 
-dibbsurl = 'https://genius.com/Earl-sweatshirt-sunday-lyrics'
+dibbsurl = 'https://genius.com/Earl-sweatshirt-earl-lyrics'
 uClient = requests.get(dibbsurl, verify=False)
 data = uClient.content
-
-f = open("GeniusHTTP2.txt", "a")
-f.write(data)
-f.close()
-
 
 # query the website and return the html to the variable page
 page = data
@@ -41,28 +36,28 @@ for item in pageText.split("\n"):
             songInfoDict[elementItems[0]] = elementItems[1]
         dictFilled = True
         lyricStartKey = songInfoDict["Title"]+" Lyrics"
+    if foundLyrics == True and "More on Genius" in item:
+        foundLyrics = False
     if dictFilled == True and lyricStartKey in item and lyricLines == -1:
             print "found2"
             foundLyrics = True
             lyricLines+=1
-    if foundLyrics == True:
-        print item 
-    if foundLyrics == True and "More on Genius" in item:
-        foundLyrics = False
-    
+            
+            outFileName = songInfoDict["Primary Artist"].replace(" ","_")+"_"+songInfoDict["Title"].replace(" ","_")+"_"+"Lyrics.txt"
+            f = open(outFileName, "w")
+            f.write(songInfoDict["Primary Artist"] + "\n")
+            f.write(songInfoDict["Primary Album"] + "\n")
+            f.write(songInfoDict["Title"] + "\n")
+            f.write("xxxxx" + "\n")
+    elif foundLyrics == True and item != "":
+        f.write(item.encode('utf-8')+"\n")
+
+        
+f.close()    
 print "XXX"
 print songInfoDict["Title"]
 print "XXX"
 
-
-f = open("GeniusText2.txt", "a")
-f.write(pageText.encode('utf-8'))
-f.close()
-
-# for line in pageText:
-#     print line
-#     if artist_name in line:
-#         print line
 
 
 
