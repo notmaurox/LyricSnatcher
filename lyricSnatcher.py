@@ -6,7 +6,7 @@ import ast
 
 artist_name = "Earl Sweatshirt"
 
-dibbsurl = 'https://genius.com/Earl-sweatshirt-earl-lyrics'
+dibbsurl = 'https://genius.com/Earl-sweatshirt-sunday-lyrics'
 uClient = requests.get(dibbsurl, verify=False)
 data = uClient.content
 
@@ -21,6 +21,7 @@ pageText = soup.get_text()
 songInfoDict = {}
 dictFilled = False
 foundLyrics = False
+inVerse = False
 lyricLines = -1
 
 for item in pageText.split("\n"):
@@ -30,7 +31,6 @@ for item in pageText.split("\n"):
         data = item.split(" = ")[1].replace("};","}")
         evalReady = data.replace("\"","").replace("}","").replace("{","")
         evalReadyArr = evalReady.split(",") 
-        print evalReady
         for element in evalReadyArr:
             elementItems = element.split(":")
             songInfoDict[elementItems[0]] = elementItems[1]
@@ -39,24 +39,29 @@ for item in pageText.split("\n"):
     if foundLyrics == True and "More on Genius" in item:
         foundLyrics = False
     if dictFilled == True and lyricStartKey in item and lyricLines == -1:
-            print "found2"
             foundLyrics = True
             lyricLines+=1
             
             outFileName = songInfoDict["Primary Artist"].replace(" ","_")+"_"+songInfoDict["Title"].replace(" ","_")+"_"+"Lyrics.txt"
             f = open(outFileName, "w")
-            f.write(songInfoDict["Primary Artist"] + "\n")
-            f.write(songInfoDict["Primary Album"] + "\n")
-            f.write(songInfoDict["Title"] + "\n")
+            f.write(songInfoDict["Primary Artist"].encode('utf-8') + "\n")
+            f.write(songInfoDict["Primary Album"].encode('utf-8') + "\n")
+            f.write(songInfoDict["Title"].encode('utf-8') + "\n")
             f.write("xxxxx" + "\n")
-    elif foundLyrics == True and item != "":
-        f.write(item.encode('utf-8')+"\n")
+    elif foundLyrics == True:
+        if "[" in item:
+            itemSplit = item.split(": ")
+            if len(itemSplit) > 1:
+                if artist_name in itemSplit[1]:
+                    inVerse = True
+            elif artist_name == songInfoDict["Primary Artist"]:
+                inVerse = True
+        elif item == "":
+            inVerse = False
+        if inVerse == True:
+            f.write(item.encode('utf-8')+"\n")
 
-        
 f.close()    
-print "XXX"
-print songInfoDict["Title"]
-print "XXX"
 
 
 
