@@ -1,2 +1,4 @@
-/Songs
-earlBot.py
+*
+!.gitignore
+!lyricSnatcher.py
+!earlGeniusURLS.txt
