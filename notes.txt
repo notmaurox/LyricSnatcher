@@ -42,3 +42,4 @@ Song ID:188765,Title:Sunday,Primary Artist:Earl Sweatshirt,Primary Artist ID:686
 Features to add...
 Ability to read URLS for albums not only songs,
 Ability to download group lyrics (brockhampton/wutang)
+GUI that is able to help with lyric choice
