@@ -37,3 +37,8 @@ Song ID:188765,Title:Sunday,Primary Artist:Earl Sweatshirt,Primary Artist ID:686
 #someone else. Splitting [] lines by ": " should either result in an array
 #of 1 element if no writer tag, otherwise element 2 should contain artist name
 #provided by songInfoDict["Primary Artist"]
+
+
+Features to add...
+Ability to read URLS for albums not only songs,
+Ability to download group lyrics (brockhampton/wutang)
